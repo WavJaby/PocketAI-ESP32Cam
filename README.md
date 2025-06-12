@@ -2,11 +2,19 @@
 
 A compact AI-powered camera system built on ESP32 with image capture, Wi-Fi connectivity, and button control functionality.
 
+## Related Projects
+
+- [PocketAI Backend Server](https://github.com/WavJaby/PocketAI-Backend) - Backend server for AI image processing
+- [PocketAI XIAO ESP32](https://github.com/WavJaby/PocketAI-XIAO_ESP32) - XIAO ESP32 version
+
+**Note:** This repository only supports ESP32-CAM. For XIAO ESP32 support, please
+visit [PocketAI-XIAO_ESP32](https://github.com/WavJaby/PocketAI-XIAO_ESP32).
+
 ## Features
 
-- **Image Capture**: High-quality image capture using ESP32-CAM module
-- **Wi-Fi Connectivity**: 2.4G Wi-Fi connection
-- **Button Controls**: 
+- **📸 Image Capture**: High-quality image capture using ESP32-CAM module
+- **📶 Wi-Fi Connectivity**: 2.4G Wi-Fi connection
+- **🎮 Button Controls**: 
   - Capture Mode
     - Single click: Capture image and send image to server, after process done, will go to `Result Mode`
   - Result Mode
@@ -14,14 +22,16 @@ A compact AI-powered camera system built on ESP32 with image capture, Wi-Fi conn
     - Long press: Start scroll
     - Double click: Zoom in or zoom out. 
       - When in `Jump To Begin` mode, back to `Capture Mode`.
-- **OTA Updates**: Over-the-air firmware update capability
-- **SPI RAM Support**: Extended memory support for image processing
+- **🔄 OTA Updates**: Over-the-air firmware update capability through Wi-Fi
+- **💾 SPI RAM Support**: Extended memory support for image processing
 
 ## Hardware Requirements
 
 - ESP32-CAM module
-- Push button (Connect to gpio)
+- Push button (Connect to GPIO 13)
 - OLED Screen (SSD1306)
+  - SDA: GPIO 14
+  - SCL: GPIO 15
 
 ### Core Components
 
@@ -47,11 +57,12 @@ Configure your Wi-Fi credentials in the project configuration:
 idf.py menuconfig
 ```
 
-Navigate to "Example Configuration" and set:
-- Wi-Fi SSID
-- Wi-Fi Password
-- Maximum retry attempts
-- Authentication mode (WPA2/WPA3)
+> [!WARNING]
+> **⚠️ Backend Server Configuration Required 🔧**
+> 
+> The backend server address has not yet been written into the configuration and needs to be manually set in `main/module/http_api_control.h`. 
+> 
+> Currently, you must modify the `HTTP_API_HOST` and `HTTP_API_PORT` definitions in this file to match your backend server setup before building the project. 🛠️
 
 ## Building and Flashing
 
